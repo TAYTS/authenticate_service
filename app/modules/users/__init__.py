@@ -4,6 +4,7 @@ from flask import Blueprint
 from app.modules.users.Gauth import glogin
 from app.modules.users.login import login, refresh, authenticate
 from app.modules.users.register import register
+from app.modules.users.logout import logout
 
 # Define the blueprint name
 module = Blueprint("users", __name__)
@@ -18,3 +19,5 @@ module.add_url_rule("/users/authenticate",
                     view_func=authenticate, methods=['GET'])
 module.add_url_rule("/users/register",
                     view_func=register, methods=['POST'])
+module.add_url_rule("/users/logout",
+                    view_func=logout, methods=['POST'])
