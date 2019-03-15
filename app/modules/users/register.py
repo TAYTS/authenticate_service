@@ -5,7 +5,7 @@ from sqlalchemy import exc
 
 # Import database models
 from models.db import db
-from models.user import Users
+from models.users import Users
 
 # Import helper function
 from app.utils.create_user_hash import create_user_hash

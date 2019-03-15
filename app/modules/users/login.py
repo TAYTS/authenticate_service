@@ -11,7 +11,7 @@ from flask_jwt_extended import (
 
 # Import database models
 from models.db import db
-from models.user import Users
+from models.users import Users
 
 
 def login():
