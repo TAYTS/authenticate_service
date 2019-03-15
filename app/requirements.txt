@@ -4,3 +4,4 @@ Flask-JWT-Extended==3.17.0
 mysqlclient==1.3.13
 Werkzeug==0.14.1
 Flask-Cors==3.0.7
+requests-oauthlib==1.2.0
