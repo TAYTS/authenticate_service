@@ -10,12 +10,17 @@ class TicketRecords(db.Model):
     id_message = db.Column(db.String(255), unique=True, default='')
     id_creator = db.Column(db.Integer, db.ForeignKey(
         'USERS.id_user', ondelete='RESTRICT', onupdate='RESTRICT'))
-    id_admin = db.Column(db.Integer, db.ForeignKey(
-        'USERS.id_user', ondelete='RESTRICT', onupdate='RESTRICT'))
+    id_admin = db.Column(db.Integer,
+                         db.ForeignKey(
+                             'USERS.id_user',
+                             ondelete='RESTRICT',
+                             onupdate='RESTRICT'),
+                         nullable=True)
     # status: -1 => No admin has taken the ticket
     # status:  0 => Ticket is assigned to an admin
     # status:  1 => Ticket is marked as closed
     status = db.Column(TINYINT(1), default=-1)
+    title = db.Column(db.String(255), default='')
     create_timestamp = db.Column(
         TIMESTAMP, default=datetime.utcnow().replace(microsecond=0))
     last_activity_timestamp = db.Column(
