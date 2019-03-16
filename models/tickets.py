@@ -21,6 +21,7 @@ class TicketRecords(db.Model):
     # status:  1 => Ticket is marked as closed
     status = db.Column(TINYINT(1), default=-1)
     title = db.Column(db.String(255), default='')
+    category = db.Column(db.String(100), default='')
     create_timestamp = db.Column(
         TIMESTAMP, default=datetime.utcnow().replace(microsecond=0))
     last_activity_timestamp = db.Column(
