@@ -19,12 +19,6 @@ def create_ticket():
     category = str(request.json.get("category"))
     message = str(request.json.get("message"))
 
-    current_app.logger.info(request.json)
-
-    current_app.logger.info("Title: " + title)
-    current_app.logger.info("Category: " + category)
-    current_app.logger.info("Message: " + message)
-
     # Get the id_user_hash from the jwt_token
     id_user_hash = get_jwt_identity()
     current_app.logger.info(id_user_hash)
