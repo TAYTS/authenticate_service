@@ -27,8 +27,8 @@ def retrieve_tickets():
         Users.id_user_hash == id_user_hash
     ).first()
 
-    # Define the default return message
-    tickets = {"open": [], "close": []}
+    # Define the default response message
+    resp = {"open": [], "close": []}
 
     # Found the user
     if id_user:
@@ -56,10 +56,10 @@ def retrieve_tickets():
                 "status": statusStr[ticket.status]
             }
             if ticket.status <= 0:
-                tickets["open"].append(base)
+                resp["open"].append(base)
             else:
-                tickets["close"].append(base)
-        return jsonify(tickets), 200
+                resp["close"].append(base)
+        return jsonify(resp), 200
 
     return jsonify({
         "message": "Invalid credential"
