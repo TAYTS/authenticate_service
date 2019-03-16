@@ -32,8 +32,10 @@ def make_app(config='config.py'):
 
     # Degine all the moduls
     from app.modules import users
+    from app.modules import tickets
 
     # Register the blueprint of each module
     app.register_blueprint(users.module)
+    app.register_blueprint(tickets.module)
 
     return app

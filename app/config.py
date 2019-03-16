@@ -6,6 +6,8 @@ SQLALCHEMY_DATABASE_URI = (
     ""
 )
 SQLALCHEMY_TRACK_MODIFICATIONS = False
+SQLALCHEMY_POOL_RECYCLE = 299
+SQLALCHEMY_POOL_RECYCLE = 20
 PREFERRED_URL_SCHEME = "https"
 
 # Log
@@ -27,3 +29,9 @@ GOOGLE_LOGIN_CLIENT_SECRET = ""
 GOOGLE_AUTH_URI = "https://accounts.google.com/o/oauth2/auth"
 GOOGLE_TOKEN_URI = "https://accounts.google.com/o/oauth2/token"
 GOOGLE_USER_INFO = "https://www.googleapis.com/userinfo/v2/me"
+
+# AWS
+AWS_KEY = ""
+AWS_SECRET_ACCESS_KEY = ""
+# DynamoDB
+DYNAMO_TABLENAME = "MESSAGE_RECORDS"
