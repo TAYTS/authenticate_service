@@ -20,6 +20,7 @@ def save_to_dynamoDB(id_message, id_ticket, message, create_timestamp):
     # Get the dynamoDB service
     dynamodb = boto3.client(
         "dynamodb",
+        region_name=current_app.config["AWS_REGION"],
         aws_access_key_id=current_app.config["AWS_KEY"],
         aws_secret_access_key=current_app.config["AWS_SECRET_ACCESS_KEY"]
     )
