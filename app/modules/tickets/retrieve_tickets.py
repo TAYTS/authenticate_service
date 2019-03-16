@@ -6,9 +6,18 @@ from models.db import db
 from models.users import Users
 from models.tickets import TicketRecords
 
+# Import helper modules
+from app.utils.create_timestamp_str import create_timestamp_str
+
 
 @jwt_required
 def retrieve_tickets():
+    """
+    - Get all the tickets created by the user
+    - Identify the user from the id_user_hash stored inside the JWT_TOKEN
+    Returns:
+        tickets (dictionary): Details of each ticket created by the user
+    """
     # Get the id_user_hash from the jwt_token
     id_user_hash = get_jwt_identity()
     current_app.logger.info(id_user_hash)
@@ -19,7 +28,7 @@ def retrieve_tickets():
     ).first()
 
     # Define the default return message
-    messages = {"open": [], "close": []}
+    tickets = {"open": [], "close": []}
 
     # Found the user
     if id_user:
@@ -31,7 +40,6 @@ def retrieve_tickets():
             TicketRecords.status
         ).all()
 
-        time_format = "%d %b %Y %I:%M %p"
         # Map status value to string
         statusStr = {
             -1: "Pending",
@@ -43,15 +51,15 @@ def retrieve_tickets():
                 "title": ticket.title,
                 "ticketID": ticket.id_ticket_hash,
                 "ticketCategory": ticket.category,
-                "create_timestamp": ticket.create_timestamp.strftime(time_format),
-                "last_activity": ticket.last_activity_timestamp.strftime(time_format),
+                "create_timestamp": create_timestamp_str(ticket.create_timestamp),
+                "last_activity": create_timestamp_str(ticket.last_activity_timestamp),
                 "status": statusStr[ticket.status]
             }
             if ticket.status <= 0:
-                messages["open"].append(base)
+                tickets["open"].append(base)
             else:
-                messages["close"].append(base)
-        return jsonify(messages), 200
+                tickets["close"].append(base)
+        return jsonify(tickets), 200
 
     return jsonify({
         "message": "Invalid credential"
