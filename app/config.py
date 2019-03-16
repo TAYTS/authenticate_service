@@ -34,4 +34,4 @@ GOOGLE_USER_INFO = "https://www.googleapis.com/userinfo/v2/me"
 AWS_KEY = ""
 AWS_SECRET_ACCESS_KEY = ""
 # DynamoDB
-DYNAMO_TABLENAME = "MessageRecords"
+DYNAMO_TABLENAME = "MESSAGE_RECORDS"
