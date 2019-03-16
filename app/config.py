@@ -31,6 +31,7 @@ GOOGLE_TOKEN_URI = "https://accounts.google.com/o/oauth2/token"
 GOOGLE_USER_INFO = "https://www.googleapis.com/userinfo/v2/me"
 
 # AWS
+AWS_REGION = "ap-southeast-1"
 AWS_KEY = ""
 AWS_SECRET_ACCESS_KEY = ""
 # DynamoDB
