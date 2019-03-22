@@ -2,7 +2,9 @@ from flask import Blueprint
 
 # Import all the view function
 from app.modules.users.Gauth import glogin
-from app.modules.users.login import login, refresh, authenticate
+from app.modules.users.login import login
+from app.modules.users.refresh import refresh
+from app.modules.users.authenticate import authenticate
 from app.modules.users.register import register
 from app.modules.users.logout import logout
 

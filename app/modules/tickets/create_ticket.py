@@ -1,4 +1,4 @@
-from flask import jsonify, request, current_app
+from flask import jsonify, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from uuid import uuid4
 from datetime import datetime
@@ -14,6 +14,13 @@ from app.utils.save_to_dynamoDB import save_to_dynamoDB
 
 @jwt_required
 def create_ticket():
+    """
+    Create ticket with the valid details received from frontend.
+
+    Returns:
+        {"status" : 0} if failed to create the ticket
+        {"status" : 1} if successfully create the ticket
+    """
     # Get all the parametes
     title = str(request.json.get("title"))
     category = str(request.json.get("category"))
@@ -21,7 +28,6 @@ def create_ticket():
 
     # Get the id_user_hash from the jwt_token
     id_user_hash = get_jwt_identity()
-    current_app.logger.info(id_user_hash)
 
     # Define template message
     resp = {"status": 0}

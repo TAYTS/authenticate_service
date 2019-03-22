@@ -1,4 +1,4 @@
-from flask import jsonify, current_app
+from flask import jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 # Import database models
@@ -13,14 +13,13 @@ from app.utils.create_timestamp_str import create_timestamp_str
 @jwt_required
 def retrieve_tickets():
     """
-    - Get all the tickets created by the user
-    - Identify the user from the id_user_hash stored inside the JWT_TOKEN
+    Get all the tickets created by the user.
+    Identify the user from the id_user_hash stored inside the JWT_TOKEN.
     Returns:
         tickets (dictionary): Details of each ticket created by the user
     """
     # Get the id_user_hash from the jwt_token
     id_user_hash = get_jwt_identity()
-    current_app.logger.info(id_user_hash)
 
     # Get the id_user
     id_user = db.session.query(Users.id_user).filter(
