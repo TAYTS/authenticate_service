@@ -12,6 +12,14 @@ from app.utils.create_user_hash import create_user_hash
 
 
 def register():
+    """
+    Register new user account.
+
+    Returns:
+        {"status" : 0} if failed to create new account
+        {"status" : -1} duplicate account
+        {"status" : 1} if successfully create new account
+    """
     username = str(request.json.get("username"))
     password = str(request.json.get("password"))
 
