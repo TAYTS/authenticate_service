@@ -17,6 +17,14 @@ from app.utils.create_user_hash import create_user_hash
 
 
 def glogin():
+    """
+    Create user account/Login using Google credential.
+    Return JWT token upon successfully login.
+
+    Returns:
+        {"status" : 0} if failed to get user details using the Google credentials
+        {"status" : 1} if successful verify the user using the Google credentials
+    """
     code = str(request.json.get("code"))
 
     # Define return message
@@ -65,7 +73,6 @@ def glogin():
             set_access_cookies(resp, access_token, max_age=access_expire)
             set_refresh_cookies(resp, refresh_token,
                                 max_age=refresh_expire)
-            current_app.logger.info(resp.headers)
             return resp, 200
         return jsonify(message), 401
     else:
