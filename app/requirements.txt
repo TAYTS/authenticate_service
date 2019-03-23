@@ -6,3 +6,5 @@ Werkzeug==0.14.1
 Flask-Cors==3.0.7
 requests-oauthlib==1.2.0
 boto3==1.9.115
+uWSGI==2.0.18
+Flask-Migrate==2.4.0
