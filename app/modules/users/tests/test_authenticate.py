@@ -16,8 +16,7 @@ class AuthenticateTest(UserUnitTest):
                 "username": "testing1@gmail.com",
                 "password": "password"
             }),
-            content_type="application/json",
-            follow_redirects=True
+            content_type="application/json"
         )
 
         # Define the required cookie names
@@ -69,8 +68,7 @@ class AuthenticateTest(UserUnitTest):
                 "username": "testing1@gmail.com",
                 "password": "password"
             }),
-            content_type="application/json",
-            follow_redirects=True
+            content_type="application/json"
         )
 
         # Define the required cookie names
@@ -108,8 +106,7 @@ class AuthenticateTest(UserUnitTest):
                 "username": "testing1@gmail.com",
                 "password": "password"
             }),
-            content_type="application/json",
-            follow_redirects=True
+            content_type="application/json"
         )
 
         # Define the required cookie names
