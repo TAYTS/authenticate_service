@@ -17,7 +17,7 @@ class RegisterTest(UserUnitTest):
             }),
             content_type="application/json"
         )
-        self.assert200(response)
+        self.assert_status(response, 201)
         self.assertEqual(
             response.get_json(),
             {"status": 1}
