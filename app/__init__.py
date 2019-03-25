@@ -4,6 +4,7 @@ import logging.handlers
 from flask import Flask
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
+from flask_migrate import Migrate
 from models.db import db
 
 
@@ -26,6 +27,9 @@ def make_app(config='config.py'):
 
     # Initialise the app with the database setup
     db.init_app(app)
+
+    # Add db migrate handler
+    Migrate(app, db)
 
     # Setup the Flask-JWT-Extended
     JWTManager(app)

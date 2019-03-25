@@ -42,7 +42,7 @@ def register():
         db.session.add(user)
         db.session.commit()
         status = 1
-        return jsonify({"status": status}), 200
+        return jsonify({"status": status}), 201
     except exc.IntegrityError:
         status = -1
         return jsonify({"status": status}), 409
