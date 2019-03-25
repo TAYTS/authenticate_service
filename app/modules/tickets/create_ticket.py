@@ -67,7 +67,7 @@ def create_ticket():
                 db.session.add(ticket)
                 db.session.commit()
                 resp["status"] = 1
-                return jsonify(resp), 200
+                return jsonify(resp), 201
         else:
             return jsonify(resp), 401
     else:
