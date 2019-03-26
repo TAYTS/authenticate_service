@@ -39,15 +39,13 @@ def create_ticket():
         ).first()
 
         if id_user:
-            # Generate uuid for the id_ticket_hash and id_message
+            # Generate uuid for the id_ticket_hash
             id_ticket_hash = str(uuid4())
-            id_message = str(uuid4())
             timestamp = datetime.utcnow().replace(microsecond=0)
 
             # Create ticket record entry
             ticket = TicketRecords(
                 id_ticket_hash=id_ticket_hash,
-                id_message=id_message,
                 id_creator=id_user,
                 title=title,
                 category=category,
@@ -57,7 +55,6 @@ def create_ticket():
 
             # Add message record to dynamoDB
             save_status = save_to_dynamoDB(
-                id_message,
                 id_ticket_hash,
                 message,
                 timestamp
