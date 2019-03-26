@@ -2,12 +2,11 @@ from flask import current_app
 import boto3
 
 
-def save_to_dynamoDB(id_message, id_ticket, message, create_timestamp):
+def save_to_dynamoDB(id_ticket, message, create_timestamp):
     """
     Save the message record to the dynamoDB
 
     Arguments:
-        id_message(str): uuid for the message
         id_ticket(str): uuid for the associated ticket
         message(str): content of the message
         create_timestamp(datetime): timestamp for creating the message
@@ -29,9 +28,6 @@ def save_to_dynamoDB(id_message, id_ticket, message, create_timestamp):
         response = dynamodb.put_item(
             TableName=current_app.config["DYNAMO_TABLENAME"],
             Item={
-                "ID_MESSAGE": {
-                    "S": id_message
-                },
                 "ID_TICKET": {
                     "S": id_ticket
                 },

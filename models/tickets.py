@@ -7,7 +7,6 @@ class TicketRecords(db.Model):
     __tablename__ = 'TICKET_RECORDS'
     id_ticket = db.Column(db.Integer, primary_key=True)
     id_ticket_hash = db.Column(db.String(255), unique=True, default='')
-    id_message = db.Column(db.String(255), unique=True, default='')
     id_creator = db.Column(db.Integer, db.ForeignKey(
         'USERS.id_user', ondelete='RESTRICT', onupdate='RESTRICT'))
     id_admin = db.Column(db.Integer,
