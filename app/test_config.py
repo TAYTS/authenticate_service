@@ -39,3 +39,9 @@ AWS_KEY = os.environ.get("AWS_KEY")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
 # DynamoDB
 DYNAMO_TABLENAME = "MESSAGE_RECORDS"
+# S3
+S3_BUCKET = ""
+S3_LOCATION = "http://{}.s3.amazonaws.com/".format(S3_BUCKET)
+
+# Temporary File Storage
+TEMP_DIR = "tmp/"
