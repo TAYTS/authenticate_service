@@ -17,11 +17,10 @@ def refresh():
     Return new JWT token with update expired time
 
     Returns:
-        {"status" : 0} if failed to authenticate the user
-        {"status" : 1} if successfully authenticate the user
+        {"id_user_hash" : "id-user-hash"}
     """
     id_user_hash = get_jwt_identity()
-    message = {"status": 0}
+    message = {"id_user_hash": ""}
 
     if id_user_hash:
         user = db.session.query(Users).filter(
@@ -32,7 +31,7 @@ def refresh():
                 identity=id_user_hash, fresh=False)
             access_expire = current_app.config["JWT_ACCESS_TOKEN_EXPIRES"]
 
-            message["status"] = 1
+            message["id_user_hash"] = id_user_hash
             resp = jsonify(message)
             set_access_cookies(resp, access_token, max_age=access_expire)
             return resp, 200
