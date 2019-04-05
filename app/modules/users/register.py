@@ -2,6 +2,7 @@ from flask import request, jsonify, current_app
 from werkzeug.security import generate_password_hash
 from datetime import datetime
 from sqlalchemy import exc
+import requests
 
 # Import database models
 from models.db import db
@@ -22,31 +23,47 @@ def register():
     """
     username = str(request.json.get("username"))
     password = str(request.json.get("password"))
-
+    message = {"status": 0}
     if not(username and password):
-        return jsonify({"status": 0}), 400
+        return jsonify(message), 400
 
-    hashed_user = create_user_hash(username)
+    # Check if the account exist
+    user = db.session.query(Users).filter(
+        Users.email == username
+    ).first()
 
-    hashed_password = generate_password_hash(password)
-    timestamp = datetime.utcnow()
+    if not user:
+        hashed_user = create_user_hash(username)
+        hashed_password = generate_password_hash(password)
+        timestamp = datetime.utcnow()
 
-    user = Users(
-        id_user_hash=hashed_user,
-        password=hashed_password,
-        email=username,
-        create_timestamp=timestamp
-    )
+        # Create twilio chat user ID
+        payload = {
+            "id_user_hash": hashed_user
+        }
+        response = requests.post(
+            current_app.config["MESSAGE_API"] + "create_chat_user",
+            json=payload)
+        id_chat = response.json.get("id_chat")
 
-    try:
-        db.session.add(user)
-        db.session.commit()
-        status = 1
-        return jsonify({"status": status}), 201
-    except exc.IntegrityError:
-        status = -1
-        return jsonify({"status": status}), 409
-    except Exception as e:
-        current_app.logger.info('Failed to add new user: ' + str(e))
-        status = 0
-        return jsonify({"status": status}), 500
+        if id_chat:
+            user = Users(
+                id_user_hash=hashed_user,
+                id_chat=id_chat,
+                password=hashed_password,
+                email=username,
+                create_timestamp=timestamp
+            )
+
+            try:
+                db.session.add(user)
+                db.session.commit()
+                message["status"] = 1
+                return jsonify(message), 201
+            except Exception as e:
+                current_app.logger.info('Failed to add new user: ' + str(e))
+
+        return jsonify(message), 500
+    else:
+        message["status"] = -1
+        return jsonify(message), 409
