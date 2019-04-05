@@ -86,6 +86,8 @@ class UserUnitTest(TestCase):
         except Exception as e:
             print(e)
         self.create_user()
+        user = db.session.query(Users).first()
+        self.user = user
 
     def tearDown(self):
         db.session.remove()
