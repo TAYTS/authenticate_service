@@ -6,6 +6,8 @@ from werkzeug.security import generate_password_hash
 from datetime import datetime
 import hashlib
 import json
+import random
+import string
 
 # Import database models
 from models.db import db
@@ -23,17 +25,19 @@ class UserUnitTest(TestCase):
         return app
 
     def create_user(self):
-        username = "testing1@gmail.com"
+        username = ''.join(random.choices(
+            string.ascii_uppercase + string.digits, k=10))
+        email = username + "@gmail.com"
         password = "password"
-        unhashed_user = "email: " + username + "ESC-Accenture"
+        unhashed_user = "email: " + email + "ESC-Accenture"
         hashed_user = hashlib.sha512(unhashed_user.encode("UTF-8")).hexdigest()
         hashed_password = generate_password_hash(password)
         timestamp = datetime.utcnow()
-
         user = Users(
             id_user_hash=hashed_user,
+            username=username,
             password=hashed_password,
-            email=username,
+            email=email,
             create_timestamp=timestamp
         )
         db.session.add(user)
