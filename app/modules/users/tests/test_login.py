@@ -20,7 +20,7 @@ class LoginTest(UserUnitTest):
         self.assertEqual(len(cookies), 4)
         self.assertEqual(
             response.get_json(),
-            {"status": 1}
+            {"id_user_hash": self.user.id_user_hash}
         )
 
     def test_with_invalid_credentials(self):
@@ -35,7 +35,7 @@ class LoginTest(UserUnitTest):
         self.assert401(response)
         self.assertEqual(
             response.get_json(),
-            {"status": 0}
+            {"id_user_hash": ""}
         )
 
     def test_with_empty_parameter(self):
@@ -50,5 +50,5 @@ class LoginTest(UserUnitTest):
         self.assert401(response)
         self.assertEqual(
             response.get_json(),
-            {"status": 0}
+            {"id_user_hash": ""}
         )

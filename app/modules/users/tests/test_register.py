@@ -12,7 +12,8 @@ class RegisterTest(UserUnitTest):
         response = self.client.post(
             url_for("users.register"),
             data=json.dumps({
-                "username": username + "@gmail.com",
+                "username": username,
+                "email": username + "@gmail.com",
                 "password": "password"
             }),
             content_type="application/json"
@@ -27,7 +28,8 @@ class RegisterTest(UserUnitTest):
         response = self.client.post(
             url_for("users.register"),
             data=json.dumps({
-                "username": "testing1@gmail.com",
+                "username": self.user.username,
+                "email": self.user.email,
                 "password": "password"
             }),
             content_type="application/json"
