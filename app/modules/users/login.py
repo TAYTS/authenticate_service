@@ -20,7 +20,7 @@ def login():
         {"id_user_hash" : "id-user-hash"}
     """
     # Get the data from the request JSON
-    username = str(request.json.get("username"))
+    email = str(request.json.get("email"))
     password = str(request.json.get("password"))
     remember = request.json.get("remember")
 
@@ -28,8 +28,8 @@ def login():
     message = {"id_user_hash": ""}
 
     # Check if the data is present
-    if username and password:
-        user = db.session.query(Users).filter(Users.email == username).first()
+    if email and password:
+        user = db.session.query(Users).filter(Users.email == email).first()
         if user:
             if user.check_password(password):
                 access_token = create_access_token(
