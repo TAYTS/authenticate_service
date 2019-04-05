@@ -1,7 +1,6 @@
 from flask import request, jsonify, current_app
 from werkzeug.security import generate_password_hash
 from datetime import datetime
-from sqlalchemy import exc
 import requests
 
 # Import database models
@@ -22,18 +21,19 @@ def register():
         {"status" : 1} if successfully create new account
     """
     username = str(request.json.get("username"))
+    email = str(request.json.get("email"))
     password = str(request.json.get("password"))
     message = {"status": 0}
-    if not(username and password):
+    if not(username and email and password):
         return jsonify(message), 400
 
     # Check if the account exist
     user = db.session.query(Users).filter(
-        Users.email == username
+        Users.email == email
     ).first()
 
     if not user:
-        hashed_user = create_user_hash(username)
+        hashed_user = create_user_hash(email)
         hashed_password = generate_password_hash(password)
         timestamp = datetime.utcnow()
 
@@ -50,8 +50,9 @@ def register():
             user = Users(
                 id_user_hash=hashed_user,
                 id_chat=id_chat,
+                username=username,
                 password=hashed_password,
-                email=username,
+                email=email,
                 create_timestamp=timestamp
             )
 

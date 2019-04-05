@@ -43,12 +43,14 @@ def glogin():
             if user is None:
                 # User not found
                 # Create new user for Google sign in
+                username = user_info.get("name")
                 user_email = user_info.get("email")
                 hashed_user = create_user_hash(user_email)
                 timestamp = datetime.utcnow()
 
                 user = Users(
                     id_user_hash=hashed_user,
+                    username=username,
                     email=user_email,
                     create_timestamp=timestamp
                 )
