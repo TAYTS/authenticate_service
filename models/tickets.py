@@ -15,6 +15,7 @@ class TicketRecords(db.Model):
                              ondelete='RESTRICT',
                              onupdate='RESTRICT'),
                          nullable=True)
+    id_channel = db.Column(db.String(255), unique=True, default='')
     # status: -1 => No admin has taken the ticket
     # status:  0 => Ticket is assigned to an admin
     # status:  1 => Ticket is marked as closed
