@@ -49,7 +49,7 @@ class UserUnitTest(TestCase):
         response = self.client.post(
             url_for("users.login"),
             data=json.dumps({
-                "username": "testing1@gmail.com",
+                "email": self.user.email,
                 "password": "password"
             }),
             content_type="application/json"
