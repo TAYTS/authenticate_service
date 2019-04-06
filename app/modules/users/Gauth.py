@@ -22,13 +22,12 @@ def glogin():
     Return JWT token upon successfully login.
 
     Returns:
-        {"status" : 0} if failed to get user details using the Google credentials
-        {"status" : 1} if successful verify the user using the Google credentials
+        {"id_user_hash" : "id-user-hash"}
     """
     code = str(request.json.get("code"))
 
     # Define return message
-    message = {"status": 0}
+    message = {"id_user_hash": ""}
 
     if code:
         user_info = get_google_user(code=code)
@@ -44,12 +43,14 @@ def glogin():
             if user is None:
                 # User not found
                 # Create new user for Google sign in
+                username = user_info.get("name")
                 user_email = user_info.get("email")
                 hashed_user = create_user_hash(user_email)
                 timestamp = datetime.utcnow()
 
                 user = Users(
                     id_user_hash=hashed_user,
+                    username=username,
                     email=user_email,
                     create_timestamp=timestamp
                 )
@@ -67,7 +68,7 @@ def glogin():
             access_expire = current_app.config["JWT_ACCESS_TOKEN_EXPIRES"]
             refresh_expire = current_app.config["JWT_REFRESH_TOKEN_EXPIRES"]
 
-            message["status"] = 1
+            message["id_user_hash"] = user.id_user_hash
 
             resp = jsonify(message)
             set_access_cookies(resp, access_token, max_age=access_expire)

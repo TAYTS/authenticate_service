@@ -42,3 +42,13 @@ S3_LOCATION = "http://{}.s3.amazonaws.com/".format(S3_BUCKET)
 
 # Temporary File Storage
 TEMP_DIR = "tmp/"
+
+# TWILIO
+TWILIO_ACCOUNT_SID = ""
+TWILIO_AUTH_TOKEN = ""
+TWILIO_CHAT_SID = ""
+TWILIO_API_SID = ""
+TWILIO_API_SECRET = ""
+
+# MESSAGE API
+MESSAGE_API = "http:///messages/"

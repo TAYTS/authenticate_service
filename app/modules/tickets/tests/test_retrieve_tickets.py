@@ -18,13 +18,12 @@ class TestRetrieveTickets(UserUnitTest):
         # Create 5 ticket records
         for i in range(5):
             id_ticket_hash = str(uuid4())
-            id_message = str(uuid4())
             timestamp = datetime.utcnow().replace(microsecond=0)
 
             ticket = TicketRecords(
                 id_ticket_hash=id_ticket_hash,
-                id_message=id_message,
                 id_creator=id_user,
+                id_channel=str(uuid4()),
                 title=title,
                 category=category,
                 create_timestamp=timestamp,
@@ -32,10 +31,6 @@ class TestRetrieveTickets(UserUnitTest):
             )
             db.session.add(ticket)
             db.session.commit()
-
-    def delete_all_ticket_record(self):
-        db.session.query(TicketRecords).delete()
-        db.session.commit()
 
     def test_get_tickets_with_token_and_no_data(self):
         self.login_with_valid_credential()
@@ -69,7 +64,6 @@ class TestRetrieveTickets(UserUnitTest):
         self.assert200(response)
         self.assertEqual(close_count, 0)
         self.assertEqual(open_count, 5)
-        self.delete_all_ticket_record()
 
     def test_get_tickets_without_cookie(self):
         """ TESTING """

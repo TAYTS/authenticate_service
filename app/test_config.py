@@ -45,3 +45,6 @@ S3_LOCATION = "http://{}.s3.amazonaws.com/".format(S3_BUCKET)
 
 # Temporary File Storage
 TEMP_DIR = "tmp/"
+
+# MESSAGE API
+MESSAGE_API = "http://127.0.0.1:5000/messages/"

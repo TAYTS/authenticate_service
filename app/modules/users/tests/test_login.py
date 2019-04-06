@@ -9,7 +9,7 @@ class LoginTest(UserUnitTest):
         response = self.client.post(
             url_for("users.login"),
             data=json.dumps({
-                "username": "testing1@gmail.com",
+                "email": self.user.email,
                 "password": "password"
             }),
             content_type="application/json"
@@ -20,14 +20,14 @@ class LoginTest(UserUnitTest):
         self.assertEqual(len(cookies), 4)
         self.assertEqual(
             response.get_json(),
-            {"status": 1}
+            {"id_user_hash": self.user.id_user_hash}
         )
 
     def test_with_invalid_credentials(self):
         response = self.client.post(
             url_for("users.login"),
             data=json.dumps({
-                "username": "test@gmail.com",
+                "email": "test@gmail.com",
                 "password": "password"
             }),
             content_type="application/json"
@@ -35,14 +35,14 @@ class LoginTest(UserUnitTest):
         self.assert401(response)
         self.assertEqual(
             response.get_json(),
-            {"status": 0}
+            {"id_user_hash": ""}
         )
 
     def test_with_empty_parameter(self):
         response = self.client.post(
             url_for("users.login"),
             data=json.dumps({
-                "username": "",
+                "email": "",
                 "password": ""
             }),
             content_type="application/json"
@@ -50,5 +50,5 @@ class LoginTest(UserUnitTest):
         self.assert401(response)
         self.assertEqual(
             response.get_json(),
-            {"status": 0}
+            {"id_user_hash": ""}
         )

@@ -17,20 +17,19 @@ def login():
     Return JWT token if the user credential is valid.
 
     Returns:
-        {"status" : 0} if failed to validate the user details
-        {"status" : 1} if successful validate the user details
+        {"id_user_hash" : "id-user-hash"}
     """
     # Get the data from the request JSON
-    username = str(request.json.get("username"))
+    email = str(request.json.get("email"))
     password = str(request.json.get("password"))
     remember = request.json.get("remember")
 
     # Define return message
-    message = {"status": 0}
+    message = {"id_user_hash": ""}
 
     # Check if the data is present
-    if username and password:
-        user = db.session.query(Users).filter(Users.email == username).first()
+    if email and password:
+        user = db.session.query(Users).filter(Users.email == email).first()
         if user:
             if user.check_password(password):
                 access_token = create_access_token(
@@ -46,7 +45,7 @@ def login():
                     access_expire = None
                     refresh_expire = None
 
-                message["status"] = 1
+                message["id_user_hash"] = user.id_user_hash
 
                 resp = jsonify(message)
                 set_access_cookies(resp, access_token, max_age=access_expire)
