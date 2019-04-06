@@ -44,7 +44,7 @@ def register():
         response = requests.post(
             current_app.config["MESSAGE_API"] + "create_chat_user",
             json=payload)
-        id_chat = response.json.get("id_chat")
+        id_chat = response.json().get("id_chat")
 
         if id_chat:
             user = Users(
