@@ -9,7 +9,7 @@ class LoginTest(UserUnitTest):
         response = self.client.post(
             url_for("users.login"),
             data=json.dumps({
-                "username": "testing1@gmail.com",
+                "email": self.user.email,
                 "password": "password"
             }),
             content_type="application/json"
@@ -27,7 +27,7 @@ class LoginTest(UserUnitTest):
         response = self.client.post(
             url_for("users.login"),
             data=json.dumps({
-                "username": "test@gmail.com",
+                "email": "test@gmail.com",
                 "password": "password"
             }),
             content_type="application/json"
@@ -42,7 +42,7 @@ class LoginTest(UserUnitTest):
         response = self.client.post(
             url_for("users.login"),
             data=json.dumps({
-                "username": "",
+                "email": "",
                 "password": ""
             }),
             content_type="application/json"
