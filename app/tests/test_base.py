@@ -4,6 +4,7 @@ from app import make_app
 from flask_migrate import Migrate
 from werkzeug.security import generate_password_hash
 from datetime import datetime
+from uuid import uuid4
 import hashlib
 import json
 import random
@@ -35,6 +36,7 @@ class UserUnitTest(TestCase):
         timestamp = datetime.utcnow()
         user = Users(
             id_user_hash=hashed_user,
+            id_chat=str(uuid4()),
             username=username,
             password=hashed_password,
             email=email,
@@ -93,5 +95,6 @@ class UserUnitTest(TestCase):
         user = db.session.query(Users).first()
         self.user = user
 
+    def tearDown(self):
         db.session.remove()
         db.drop_all()
