@@ -33,18 +33,6 @@ GOOGLE_AUTH_URI = "https://accounts.google.com/o/oauth2/auth"
 GOOGLE_TOKEN_URI = "https://accounts.google.com/o/oauth2/token"
 GOOGLE_USER_INFO = "https://www.googleapis.com/userinfo/v2/me"
 
-# AWS
-AWS_REGION = "ap-southeast-1"
-AWS_KEY = os.environ.get("AWS_KEY")
-AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
-# DynamoDB
-DYNAMO_TABLENAME = "MESSAGE_RECORDS"
-# S3
-S3_BUCKET = ""
-S3_LOCATION = "http://{}.s3.amazonaws.com/".format(S3_BUCKET)
-
-# Temporary File Storage
-TEMP_DIR = "tmp/"
 
 # MESSAGE API
 MESSAGE_API = "http://127.0.0.1:5000/messages/"
