@@ -4,7 +4,7 @@ from app import make_app
 from flask_migrate import Migrate
 from werkzeug.security import generate_password_hash
 from datetime import datetime
-from twilio.rest import Client
+from uuid import uuid4
 import hashlib
 import json
 import random
@@ -36,6 +36,7 @@ class UserUnitTest(TestCase):
         timestamp = datetime.utcnow()
         user = Users(
             id_user_hash=hashed_user,
+            id_chat=str(uuid4()),
             username=username,
             password=hashed_password,
             email=email,
@@ -95,28 +96,5 @@ class UserUnitTest(TestCase):
         self.user = user
 
     def tearDown(self):
-        account_sid = self.app.config["TWILIO_ACCOUNT_SID"]
-        auth_token = self.app.config["TWILIO_AUTH_TOKEN"]
-        chat_sid = self.app.config["TWILIO_CHAT_SID"]
-        client = Client(account_sid, auth_token)
-
-        #  Remove all Twilio users
-        users = client.chat.services(chat_sid) \
-            .users.list()
-
-        for user in users:
-            client.chat.services(chat_sid) \
-                .users(user.sid) \
-                .delete()
-
-        # Delete all Twilio channels
-        channels = client.chat.services(chat_sid) \
-            .channels.list()
-
-        for channel in channels:
-            client.chat.services(chat_sid) \
-                .channels(channel.sid) \
-                .delete()
-
         db.session.remove()
         db.drop_all()
