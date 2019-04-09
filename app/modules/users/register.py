@@ -32,6 +32,9 @@ def register():
         Users.email == email
     ).first()
 
+    host = request.headers.get("Host").find("admin")
+    is_admin = 1 if (host >= 0) else 0
+
     if not user:
         hashed_user = create_user_hash(email)
         hashed_password = generate_password_hash(password)
@@ -50,6 +53,7 @@ def register():
             user = Users(
                 id_user_hash=hashed_user,
                 id_chat=id_chat,
+                is_admin=is_admin,
                 username=username,
                 password=hashed_password,
                 email=email,
