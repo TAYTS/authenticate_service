@@ -11,10 +11,16 @@ def authenticate():
     """
     Validate the JWT token.
     Returns:
-        {"id_user_hash" : "id-user-hash"}
+        {
+            "id_user_hash" : "id-user-hash",
+            "username": "username"    
+        }
     """
     id_user_hash = get_jwt_identity()
-    message = {"id_user_hash": ""}
+    message = {
+        "id_user_hash": "",
+        "username": ""
+    }
 
     if id_user_hash:
         user = db.session.query(Users).filter(
@@ -22,6 +28,7 @@ def authenticate():
         ).first()
         if user:
             message["id_user_hash"] = id_user_hash
+            message["username"] = user.username
             return jsonify(message), 200
         else:
             return jsonify(message), 401

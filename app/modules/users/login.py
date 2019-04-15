@@ -17,7 +17,10 @@ def login():
     Return JWT token if the user credential is valid.
 
     Returns:
-        {"id_user_hash" : "id-user-hash"}
+        {
+            "id_user_hash" : "id-user-hash",
+            "username": "username"    
+        }
     """
     # Get the data from the request JSON
     email = str(request.json.get("email"))
@@ -25,7 +28,10 @@ def login():
     remember = request.json.get("remember")
 
     # Define return message
-    message = {"id_user_hash": ""}
+    message = {
+        "id_user_hash": "",
+        "username": ""
+    }
 
     # Check if the data is present
     if email and password:
@@ -46,6 +52,7 @@ def login():
                     refresh_expire = None
 
                 message["id_user_hash"] = user.id_user_hash
+                message["username"] = user.username
 
                 resp = jsonify(message)
                 set_access_cookies(resp, access_token, max_age=access_expire)
