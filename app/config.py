@@ -34,3 +34,7 @@ GOOGLE_USER_INFO = "https://www.googleapis.com/userinfo/v2/me"
 
 # MESSAGE API
 MESSAGE_API = "https://message.chocolatepie.tech/messages/"
+
+# RECAPTCHA
+RECAPTCHA_LOGIN = ""
+RECAPTCHA_REGISTER = ""

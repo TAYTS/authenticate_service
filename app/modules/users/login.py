@@ -31,7 +31,7 @@ def login():
     message = {"id_user_hash": ""}
     # Check if the data is present
     if email and password and recaptchatoken:
-        payload = {"secret": "6Lf5-Z0UAAAAAHiCM-F_CGSs7L736pReIuV2LAtr", "response": recaptchatoken}
+        payload = {"secret": current_app.config["RECAPTCHA_LOGIN"], "response": recaptchatoken}
         url = "https://www.google.com/recaptcha/api/siteverify"
         r = requests.get(url, params=payload)
         if r.json()["success"]:
