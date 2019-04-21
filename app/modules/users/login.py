@@ -6,12 +6,11 @@ from flask_jwt_extended import (
     set_access_cookies,
     set_refresh_cookies
 )
+import requests
 
 # Import database models
 from models.db import db
 from models.users import Users
-# Import for recaptcha post request
-import requests
 
 
 def login():
