@@ -41,7 +41,7 @@ def register():
         user = db.session.query(Users).filter(
             Users.email == email
         ).first()
-        host = request.headers.get("Host").find("admin")
+        origin = request.headers.get("Origin").find("admin")
         is_admin = 1 if (host >= 0) else 0
 
         if not user:

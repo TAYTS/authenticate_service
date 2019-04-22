@@ -45,7 +45,9 @@ def login():
         r = requests.get(url, params=payload)
         if r.json()["success"]:
             user = db.session.query(Users).filter(Users.email == email).first()
-            if user:
+            origin = request.headers.get("Origin")
+            if user and ((user.is_admin and origin.find("admin") != -1) or
+                         (not user.is_admin and origin.find("user") != -1)):
                 if user.check_password(password):
                     access_token = create_access_token(
                         identity=user.id_user_hash, fresh=True
