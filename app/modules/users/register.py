@@ -42,7 +42,7 @@ def register():
             Users.email == email
         ).first()
         origin = request.headers.get("Origin").find("admin")
-        is_admin = 1 if (host >= 0) else 0
+        is_admin = 1 if (origin >= 0) else 0
 
         if not user:
             hashed_user = create_user_hash(email)
